@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import {Spacer} from "@nextui-org/react";
+import NavbarComponent from "./Components/Global/Navbar";
 import './App.css';
+import GalleryPage from "./Components/EventGallery/GalleryPage";
+import Footer from "./Components/Global/Footer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          <main className="dark text-foreground bg-background" style = {{height:"100vh"}}>
+              <div className="App">
+                  <NavbarComponent/>
+                  <div className="flex justify-center">
+                      <Spacer x={4}/>
+                      <GalleryPage/>
+                      <Spacer x={4}/>
+                  </div>
+                  <Footer/>
+              </div>
+          </main>
+);
 }
 
 export default App;

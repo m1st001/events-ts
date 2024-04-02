@@ -1,0 +1,57 @@
+{
+  "users": [
+    { "id": "1", "title": "a title", "views": 100 },
+    { "id": "2", "title": "another title", "views": 200 }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "name": "Test name",
+      "author": "автор конченый",
+      "location": "Test location",
+      "description": "бябябябябяябябябябябяябябябябябяябябябябябяябябябябябяябябябябябяябябябябябяябябябябябяя",
+      "tags": [
+        1,2,3,5
+      ],
+      "registered": "1",
+      "capacity": "-1",
+      "startDate": "2019-07-26T16:59:57-05:00"
+    },
+    {
+      "id": "2",
+      "name": "CS2 LAN",
+      "location": "CyberX",
+      "description": "Собираемся в компутирный квуб с пацанами",
+      "tags": [
+        "CS2", "LAN", "Competitive"
+      ],
+      "registered": "1",
+      "capacity": "10",
+      "startDate": "2024-07-26T16:59:57-05:00"
+    },
+    {
+      "id": "3",
+      "name": "Warcraft3",
+      "location": "Pudge",
+      "description": "aboba",
+      "tags": [
+        "WC3", "RTS"
+      ],
+      "registered": "1",
+      "capacity": "4",
+      "startDate": "2024-07-26T16:59:57-05:00"
+    },
+    {
+      "id": "4",
+      "name": "алкопати",
+      "location": "подъезд",
+      "description": "Водка смешивается с колой в пропоррции 1*водка/2*кола",
+      "tags": [
+        "алкотрип"
+      ],
+      "registered": "1",
+      "capacity": "1",
+      "startDate": "2024-07-26T16:59:57-05:00"
+    }
+  ]
+}

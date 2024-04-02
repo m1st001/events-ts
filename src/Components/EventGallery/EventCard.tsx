@@ -1,24 +1,26 @@
 import React from 'react';
 import {Card, CardHeader, CardBody, CardFooter, Avatar, Button, Spacer} from "@nextui-org/react";
 
-interface EventProps {
+export interface IEvent {
     id: number;
     name: string;
-    space: number;
-    startDate: Date;
     location: string;
     description: string;
+    tags: string[];
+    registered: number;
+    capacity: number;
+    startDate: Date;
 }
-function EventCard({ id, name, space, startDate, location, description }: EventProps) {
+export function EventCard({ id, name, registered, startDate, location, description, capacity, tags }: IEvent) {
     const [isFollowed, setIsFollowed] = React.useState(false);
     return (
         <div className="container">
             <Card className="w-64" style={{
-                width: "256px",
+                width: "280px",
                 height: "205px"}}>
                 <CardHeader className="justify-between gap-1">
                     <div className="flex">
-                        <Avatar isBordered radius="full" size="md" src="/avatars/avatar-1.png" className="mt-1" />
+                        <Avatar isBordered radius="full" size="md" src="/avatars/avatar-1.png" className="mt-1"/>
                         <Spacer x={2}/>
                         <div className="flex flex-col gap-1 items-start justify-center">
                             <div className="flex gap-2">
@@ -47,22 +49,22 @@ function EventCard({ id, name, space, startDate, location, description }: EventP
                         Starts {startDate.getDate() + '.' + (startDate.getMonth() + 1) + '.' + startDate.getFullYear()} at {startDate.getHours()}:{startDate.getMinutes()}
                     </p>
                     <span className="pt-2">
-                            Tags:
+                        Tags: {tags.join(',')}
                     </span>
                     <p>
                         Description:
                     </p>
                     <p className="">
-                        {description}0
+                        {description}
                     </p>
                 </CardBody>
                 <CardFooter className="gap-3">
                     <div className="flex gap-1">
-                        <p className="font-semibold text-default-400 text-small">1</p>
+                        <p className="font-semibold text-default-400 text-small">{registered}</p>
                         <p className=" text-default-400 text-small">Registered</p>
                     </div>
                     <div className="flex gap-1">
-                        <p className="font-semibold text-default-400 text-small">{space}</p>
+                        <p className="font-semibold text-default-400 text-small">{capacity}</p>
                         <p className="text-default-400 text-small">Capacity</p>
                     </div>
                 </CardFooter>
@@ -70,5 +72,3 @@ function EventCard({ id, name, space, startDate, location, description }: EventP
         </div>
     );
 }
-
-export default EventCard;

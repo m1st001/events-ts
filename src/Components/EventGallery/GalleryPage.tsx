@@ -1,44 +1,37 @@
-import React from 'react';
-import EventCard from "./EventCard";
+import React, {useEffect, useState} from 'react';
 import {Pagination, Spacer} from "@nextui-org/react";
+import {EventCard, IEvent} from "./EventCard";
 
 function GalleryPage() {
+    const [events, setEvents] = useState<IEvent[]>([]);
+
+    useEffect(() => {
+        const fetchEvents = async() => {
+            const response = await fetch('http://localhost:3000/events');
+            const events = (await response.json()) as IEvent[];
+            setEvents(events);
+        };
+
+        fetchEvents();
+    }, []);
+
     return (
         <div className="container flex flex-col">
             <div className="container flex flex-wrap justify-content-center justify-center gap-4">
-                <EventCard
-                    id={0}
-                    name={"Event 1"}
-                    space={5}
-                    startDate={new Date()}
-                    location={"Far"}
-                    description={"Very very very very very very very very long description"}
-                />
-                <EventCard
-                    id={1}
-                    name={"Event 2"}
-                    space={-1}
-                    startDate={new Date()}
-                    location={"Close"}
-                    description={"Kinda short description"}
-                />
-                <EventCard
-                    id={1}
-                    name={"Event 2"}
-                    space={-1}
-                    startDate={new Date()}
-                    location={"Close"}
-                    description={"Kinda short description"}
-                />
-                <EventCard
-                    id={1}
-                    name={"Event 2"}
-                    space={-1}
-                    startDate={new Date()}
-                    location={"Close"}
-                    description={"Kinda short description"}
-                />
-
+                <>
+                {events.map((eventProps) => {
+                    return <EventCard
+                        id={eventProps.id}
+                        name={eventProps.name}
+                        location={eventProps.location}
+                        description={eventProps.description}
+                        tags={eventProps.tags}
+                        registered={eventProps.registered}
+                        capacity={eventProps.capacity}
+                        startDate={new Date(eventProps.startDate)}
+                    />
+                })}
+                </>
             </div>
             <Spacer y={5}/>
             <div className="container flex justify-center">

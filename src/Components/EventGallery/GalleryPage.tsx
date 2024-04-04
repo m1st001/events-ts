@@ -1,18 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Pagination, Spacer} from "@nextui-org/react";
 import {EventCard, IEvent} from "./EventCard";
+import {fetchEvents} from "../../Services/ApiWrapper";
 
 function GalleryPage() {
     const [events, setEvents] = useState<IEvent[]>([]);
 
     useEffect(() => {
-        const fetchEvents = async() => {
-            const response = await fetch('http://localhost:3000/events');
-            const events = (await response.json()) as IEvent[];
-            setEvents(events);
-        };
-
-        fetchEvents();
+        (fetchEvents().then((result) => setEvents(result)));
     }, []);
 
     return (

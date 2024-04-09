@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Pagination, Spacer} from "@nextui-org/react";
 import {EventCard, IEvent} from "./EventCard";
 import {fetchEvents} from "../../Services/ApiWrapper";
+import SearchComponent from "./SearchComponent";
 
 function GalleryPage() {
     const [events, setEvents] = useState<IEvent[]>([]);
@@ -12,6 +13,7 @@ function GalleryPage() {
 
     return (
         <div className="container flex flex-col">
+            <SearchComponent/>
             <div className="container flex flex-wrap justify-content-center justify-center gap-4">
                 <>
                 {events.map((eventProps) => {

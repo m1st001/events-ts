@@ -7,7 +7,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ErrorPage from "./Components/Global/ErrorPage";
 import {NextUIProvider} from "@nextui-org/react";
 import CreateEventPage from "./Components/CreateEvent/CreateEventPage";
-import HistoryPage from "./Components/History/HistoryPage";
+import HistoryPage from "./Components/Dashboard/HistoryPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

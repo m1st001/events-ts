@@ -8,7 +8,9 @@ function CreateEventPage() {
         <main className="dark text-foreground bg-background" style={{height: "100vh"}}>
             <div className="App">
                 <NavbarComponent/>
-                <CreateEventComponent/>
+                <div className="flex justify-center py-4">
+                    <CreateEventComponent/>
+                </div>
                 <Footer/>
             </div>
         </main>

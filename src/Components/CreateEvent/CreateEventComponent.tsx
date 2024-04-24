@@ -5,7 +5,7 @@ import {
     CardBody,
     CardFooter,
     DateInput,
-    Input
+    Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure
 } from "@nextui-org/react";
 import {getLocalTimeZone, today} from "@internationalized/date";
 
@@ -16,6 +16,10 @@ function CreateEventComponent() {
     const [tags, setTags] = useState('');
     const [capacity, setCapacity] = useState('');
     const [startTime, setStartTime] = useState<CalendarDate>();
+
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+    const [created, setCreated] = useState<boolean>(false);
 
     function handleSubmit(event: FormEvent) {
         event.preventDefault();
@@ -70,11 +74,35 @@ function CreateEventComponent() {
                         size="sm"
                         variant="solid"
                         type="submit"
+                        onPress={() => {
+                            if (created) {
+                                onOpen();
+                            }
+                        }}
                     >
                         Create
                     </Button>
                 </CardFooter>
             </Card>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="dark text-foreground">
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">Event created</ModalHeader>
+                            <ModalBody>
+                                <p>
+                                    Event created successfully.
+                                </p>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="primary" onPress={onClose}>
+                                    Close
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </form>
     );
 }

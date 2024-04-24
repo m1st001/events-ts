@@ -1,59 +1,81 @@
-import React from 'react';
+import React, {FormEvent, useState} from 'react';
 import {
-    Button,
+    Button, CalendarDate,
     Card,
     CardBody,
     CardFooter,
-    CardHeader,
     DateInput,
-    Divider,
     Input
 } from "@nextui-org/react";
-import {PressEvent} from "@react-types/shared";
-import {I18nProvider} from "@react-aria/i18n";
+import {getLocalTimeZone, today} from "@internationalized/date";
 
 function CreateEventComponent() {
-    function handleSubmit(event: PressEvent) {
-        return;
+    const [name, setName] = useState('');
+    const [description, setDescr] = useState('');
+    const [location, setLocation] = useState('');
+    const [tags, setTags] = useState('');
+    const [capacity, setCapacity] = useState('');
+    const [startTime, setStartTime] = useState<CalendarDate>();
+
+    function handleSubmit(event: FormEvent) {
+        event.preventDefault();
+        console.log(name, description, location, tags, capacity, startTime?.toDate(getLocalTimeZone()).toISOString());
     }
+
     return (
-        <Card className="max-w-xl top-4" style={{
-            width: "680px"
-        }}>
-            <CardBody className="pb-0">
-                <div className="flex flex-col gap-2">
-                    <Input type="text" color="default" label="Name" size="md" />
-                    <Input type="text" color="default" label="Description" size="md" />
-                    <Input type="text" color="default" label="Tags" size="md" placeholder="Search tags..." />
-                    <div className="flex flex-row gap-2">
-                        <Input type="text" color="default" label="Location" size="md" />
-                        <I18nProvider locale="en-001">
+        <form onSubmit={handleSubmit}>
+            <Card className="max-w-xl top-4" style={{
+                width: "680px"
+            }}>
+                <CardBody className="pb-0">
+                    <div className="flex flex-col gap-2">
+                        <Input isRequired type="text" color="default" label="Name" size="md" value={name} onChange={e => {
+                            setName(e.target.value);
+                        }}
+                        />
+                        <Input type="text" color="default" label="Description" size="md" value={description} onChange={e => {
+                            setDescr(e.target.value);
+                        }}
+                        />
+                        <Input isRequired type="text" color="default" label="Tags" size="md" placeholder="Search tags..." value={tags} onChange={e => {
+                            setTags(e.target.value);
+                        }}/>
+                        <div className="flex flex-row gap-2">
+                            <Input isRequired type="text" color="default" label="Location" size="md" value={location} onChange={e => {
+                                setLocation(e.target.value)
+                            }}
+                            />
                             <DateInput
+                                isRequired
                                 granularity="minute"
                                 hourCycle={24}
                                 label="Date and time"
+                                minValue={today(getLocalTimeZone())}
+                                onChange={e => {setStartTime(e as CalendarDate)}}
                             />
-                        </I18nProvider>
-                        <Input type="text" color="default"
-                               label="Capacity" placeholder="0" size="md"
-                               className="w-1/6"
-                        />
+                            <Input isRequired type="text" color="default"
+                                   label="Capacity" placeholder="0" size="md"
+                                   className="w-1/6"
+                                   value={capacity}
+                                   onChange={e => {setCapacity(e.target.value)}}
+                            />
+                        </div>
                     </div>
-                </div>
-            </CardBody>
-            <CardFooter className="gap-4 justify-end">
-                <Button
-                    color="primary"
-                    className="border-default-200"
-                    radius="full"
-                    size="sm"
-                    variant="solid"
-                    onPress={handleSubmit}
-                >
-                    Create
-                </Button>
-            </CardFooter>
-        </Card>
+                </CardBody>
+                <CardFooter className="gap-4 justify-end">
+                    <Button
+                        color="primary"
+                        className="border-default-200"
+                        radius="full"
+                        size="sm"
+                        variant="solid"
+                        type="submit"
+                    >
+                        Create
+                    </Button>
+                </CardFooter>
+            </Card>
+        </form>
     );
 }
 

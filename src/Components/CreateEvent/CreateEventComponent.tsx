@@ -8,6 +8,16 @@ import {
     Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure
 } from "@nextui-org/react";
 import {getLocalTimeZone, today} from "@internationalized/date";
+import {postEvent} from "../../Services/ApiWrapper";
+
+export interface eventDTO {
+    name: string;
+    location: string;
+    description: string;
+    tags: string;
+    capacity: string;
+    startTime: string;
+}
 
 function CreateEventComponent() {
     const [name, setName] = useState('');
@@ -24,6 +34,15 @@ function CreateEventComponent() {
     function handleSubmit(event: FormEvent) {
         event.preventDefault();
         console.log(name, description, location, tags, capacity, startTime?.toDate(getLocalTimeZone()).toISOString());
+        if(startTime != undefined) {
+            const timeString = startTime?.toDate(getLocalTimeZone()).toISOString();
+            postEvent({name, location, description, tags, capacity, startTime : timeString}).then(response => {
+                if(response.ok) {
+                    setCreated(true);
+                }
+                onOpen();
+            });
+        }
     }
 
     return (
@@ -74,25 +93,27 @@ function CreateEventComponent() {
                         size="sm"
                         variant="solid"
                         type="submit"
-                        onPress={() => {
-                            if (created) {
-                                onOpen();
-                            }
-                        }}
                     >
                         Create
                     </Button>
                 </CardFooter>
             </Card>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="dark text-foreground">
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="dark text-foreground" backdrop="blur">
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Event created</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Result</ModalHeader>
                             <ModalBody>
-                                <p>
-                                    Event created successfully.
-                                </p>
+                                {created ? (
+                                    <p>
+                                        <i className="bi-check-circle px-2"/>Event created successfully.
+                                    </p>
+                                ) : (
+                                    <p>
+                                        <i className="bi-x-circle px-2"/>There was a problem creating your event.
+                                    </p>
+                                )}
+
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="primary" onPress={onClose}>

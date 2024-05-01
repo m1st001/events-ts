@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
 
 function NavbarComponent() {
     return (
@@ -21,19 +22,17 @@ function NavbarComponent() {
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link color="foreground" to="/history">
-                        History
+                    <Link color="foreground" to="/dashboard">
+                        Dashboard
                     </Link>
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem className="lg:flex">
-                    <LoginModal></LoginModal>
+                    <LoginModal/>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button as={Link} color="primary" href="#" variant="flat">
-                        Sign Up
-                    </Button>
+                    <RegisterModal/>
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

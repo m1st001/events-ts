@@ -9,7 +9,7 @@ function SearchComponent() {
         [selectedKeys]
     );
     return (
-        <div className="flex justify-end py-4 gap-2">
+        <div className="flex justify-center py-4 gap-2">
             <Input
                 size="sm"
                 variant="bordered"
